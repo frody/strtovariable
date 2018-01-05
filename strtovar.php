@@ -2,14 +2,14 @@
 /*
  * Converter a string to variable
  *
- * @package	  strtovar.php 0.0.1
- * @link	  	https://github.com/frody/strtovariable-php-
- * @author	  ffrody@gmail.com
+ * @package   strtovar.php 0.0.1
+ * @link      https://github.com/frody/strtovariable-php-
+ * @author    ffrody@gmail.com
  * @copyright 2018 frody (Choi H S)
- * @license	  http://opensource.org/licenses/MIT  MIT
+ * @license   http://opensource.org/licenses/MIT  MIT
  */
 
-function strtoval($str){
+function strtovar($str){
 	if( !preg_match("/^[$]/",$str) ) return $str;
 
 	$rootstr = preg_replace("/^[$]/","",$str);
@@ -23,9 +23,9 @@ function strtoval($str){
 		$str = ${$sprow_gloval};
 
 		$matches = Array();
-		preg_match_all("/\[[^\]]\]/",$sprow[0],$matches);
+		preg_match_all("/\[[^\]]*\]/",$sprow[0],$matches);
 		foreach($matches[0] as $val){
-			$str = $str[(preg_replace("/[\[\]]/","",$val))];
+			$str = $str[(preg_replace("/[\[\]"\']/","",$val))];
 		}
 	}
 
@@ -38,9 +38,9 @@ function strtoval($str){
 				$str = $str->{$strhd};
 
 				$matches = Array();
-				preg_match_all("/\[[^\]]\]/",$sprow[$i],$matches);
+				preg_match_all("/\[[^\]]*\]/",$sprow[$i],$matches);
 				foreach($matches[0] as $val){
-					$str = $str[preg_replace("/[\[\]]/","",$val)];
+					$str = $str[preg_replace("/[\[\]"\']/","",$val)];
 				}
 			}
 		}

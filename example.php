@@ -1,8 +1,3 @@
-# Convert a string to variable
-
-##### example 
-
-```
 <?php
 require_once './strtovar.php';
 $myvar = new stdClass;
@@ -22,4 +17,3 @@ echo strtovar($var2);  //-> 'b'
 echo strtovar($var3);  //-> 100
 echo strtovar($var4);  //-> 30
 ?>
-```
