@@ -25,7 +25,7 @@ function strtovar($str){
 		$matches = Array();
 		preg_match_all("/\[[^\]]*\]/",$sprow[0],$matches);
 		foreach($matches[0] as $val){
-			$str = $str[(preg_replace("/[\[\]"\']/","",$val))];
+			$str = $str[(preg_replace("/[\[\]\"\']/","",$val))];
 		}
 	}
 
@@ -40,7 +40,7 @@ function strtovar($str){
 				$matches = Array();
 				preg_match_all("/\[[^\]]*\]/",$sprow[$i],$matches);
 				foreach($matches[0] as $val){
-					$str = $str[preg_replace("/[\[\]"\']/","",$val)];
+					$str = $str[preg_replace("/[\[\]\"\']/","",$val)];
 				}
 			}
 		}
