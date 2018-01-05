@@ -1,0 +1,1 @@
+'''Converter a string to variable
