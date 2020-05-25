@@ -15,11 +15,9 @@ function strtovar($str){
 	$rootstr = preg_replace("/^[$]/","",$str);
 	$sprow = preg_split("/\-\>/",$rootstr);
 	if( !preg_match("/\[/",$sprow[0]) ){ //root variable is not Array
-		global ${$sprow[0]};
 		$str = ${$sprow[0]};
 	}else{ //root variable is Array
 		$sprow_gloval = substr($sprow[0],0,strpos($sprow[0],"["));
-		global ${$sprow_gloval};
 		$str = ${$sprow_gloval};
 
 		$matches = Array();
