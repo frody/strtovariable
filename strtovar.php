@@ -14,34 +14,28 @@ function strtovar($str){
 
 	$rootstr = preg_replace("/^[$]/","",$str);
 	$sprow = preg_split("/\-\>/",$rootstr);
-	if( !preg_match("/\[/",$sprow[0]) ){ //root variable is not Array
-		global ${$sprow[0]};
-		$str = ${$sprow[0]};
-	}else{ //root variable is Array
-		$sprow_gloval = substr($sprow[0],0,strpos($sprow[0],"["));
-		global ${$sprow_gloval};
-		$str = ${$sprow_gloval};
 
-		$matches = Array();
-		preg_match_all("/\[[^\]]*\]/",$sprow[0],$matches);
-		foreach($matches[0] as $val){
-			$str = $str[(preg_replace("/[\[\]\"\']/","",$val))];
-		}
-	}
-
-	if( count($sprow) > 1 ){ //root variable has sub objects
-		for( $i = 1 ; $i < count($sprow) ; $i++ ){
-			if( !preg_match("/\[/",$sprow[$i]) ){ //sub variable is not Array
+	for( $i = 0 ; $i < count($sprow) ; $i++ ){
+		if( !preg_match("/\[/",$sprow[$i]) ){ //sub variable is not Array
+			if( $i ){
 				$str = $str->{$sprow[$i]};
-			}else{ //sub variable is Array
-				$strhd = substr($sprow[$i],0,strpos($sprow[$i],"["));
+			}else{
+				global ${$sprow[$i]};
+				$str = ${$sprow[$i]};
+			}
+		}else{ //sub variable is Array
+			$strhd = substr($sprow[$i],0,strpos($sprow[$i],"["));
+			if( $i ){
 				$str = $str->{$strhd};
+			}else{
+				global ${$strhd};
+				$str = ${$strhd};
+			}
 
-				$matches = Array();
-				preg_match_all("/\[[^\]]*\]/",$sprow[$i],$matches);
-				foreach($matches[0] as $val){
-					$str = $str[preg_replace("/[\[\]\"\']/","",$val)];
-				}
+			$matches = Array();
+			preg_match_all("/\[[^\]]*\]/",$sprow[$i],$matches);
+			foreach($matches[0] as $val){
+				$str = $str[preg_replace("/[\[\]\"\']/","",$val)];
 			}
 		}
 	}
